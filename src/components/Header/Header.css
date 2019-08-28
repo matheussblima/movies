@@ -1,0 +1,12 @@
+.movies-header {
+    background-color: #116193;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16;
+}
+
+.movies-header-title {
+    font-family: 'Abel', sans-serif;
+    color: #00E4E2;
+}
