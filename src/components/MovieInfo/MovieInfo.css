@@ -1,0 +1,191 @@
+.movies-movieinfo-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #116193;
+    padding: 0px 32px 0px 32px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.movies-movieinfo-header-circle {
+    background-color: #116193;
+    border-color: #00E4E2;
+    border-width: 6px;
+    border-style: solid;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    bottom: -25px;
+    min-height: 55px;
+    border-radius: 55px;
+}
+
+
+.movies-movieinfo-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #EBEBEB;
+    flex: 1;
+}
+
+.movies-movieinfo-title {
+    font-family: 'Abel', sans-serif;
+    color: #00E4E2;
+    margin-left: 100px;
+    margin-bottom: 4px;
+}
+
+.movies-movieinfo-title-average {
+    color: #FFFFFF
+}
+
+.movies-movieinfo-section {
+    padding: 32px;
+}
+
+.movies-movieinfo-image {
+    height: 100%;
+    width: 100%;
+}
+
+.movies-movieinfo-container-image {
+    flex: 1;
+}
+
+
+.movies-movieinfo-container-content {
+    flex: 3;
+}
+
+.movies-movieinfo-genre-movie-container {
+    margin-top: 40px;
+}
+
+.movies-movieinfo-genre-movie {
+    background-color: #FFFFFF;
+    border-color: #116193;
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px 20px 4px 20px;
+    border-radius: 32px;
+    color: #116193;
+    margin: 4px;
+}
+
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+    .movies-movieinfo-image-mobile {
+        display: none;
+    }
+}
+
+/* 
+    ##Device = Laptops, Desktops
+    ##Screen = B/w 1025px to 1280px
+  */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .movies-movieinfo-image-mobile {
+        display: none;
+    }
+}
+
+/* 
+    ##Device = Tablets, Ipads (portrait)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-movieinfo-image {
+        display: none;
+    }
+
+    .movies-movieinfo-image-mobile {
+        height: auto;
+        width: 40%;
+        float: left;
+        margin-right: 32px
+    }
+
+}
+
+/* 
+    ##Device = Tablets, Ipads (landscape)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-movieinfo-image {
+        display: none;
+    }
+
+    .movies-movieinfo-image-mobile {
+        height: auto;
+        width: 40%;
+        float: left;
+        margin-right: 32px
+    }
+}
+
+/* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-movieinfo-image {
+        display: none;
+    }
+
+    .movies-movieinfo-image-mobile {
+        height: auto;
+        width: 40%;
+        float: left;
+        margin-right: 32px
+    }
+}
+
+/* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-movieinfo-image {
+        display: none;
+    }
+
+    .movies-movieinfo-image-mobile {
+        height: auto;
+        width: 40%;
+        float: left;
+        margin-right: 32px
+    }
+}
