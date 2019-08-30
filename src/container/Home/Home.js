@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Header, Movie } from "../../components"
+import { Header, Movie, Pagination } from "../../components"
 
 import { getMovies } from "../../duck/movies"
 import { getGenres } from "../../duck/genres"
@@ -56,6 +56,7 @@ class Home extends React.Component {
                         (
                             <h1>Erro ao buscar filmes</h1>
                         )}
+                    <Pagination />
                 </section>
             </div>
         );
