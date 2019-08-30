@@ -63,6 +63,8 @@
 }
 
 .movies-movieinfo-genre-movie-container {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 40px;
 }
 
@@ -119,7 +121,7 @@
         height: auto;
         width: 40%;
         float: left;
-        margin-right: 32px
+        margin: 0px 32px 32px 0px
     }
 
 }
