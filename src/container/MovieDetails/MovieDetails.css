@@ -1,7 +1,207 @@
-.movie-home-content {
+.movie-details-content {
     padding: 64px;
 }
 
-.movie-home-list {
-    margin-bottom: 32px;
+.movie-details-info-header {
+    background-color: #E6E6E6;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0px 64px 0px 64px;
+}
+
+.movie-details-info-header-title {
+    font-family: 'Abel', sans-serif;
+    color: #116193;
+    font-size: 20pt;
+}
+
+.movie-details-info-container {
+    background-color: #F2F2F2;
+    padding: 32px 32px 32px 40px;
+}
+
+.movie-details-info-container-title {
+    border-bottom-color: #79EDEB;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 8px;
+    font-family: 'Abel', sans-serif;
+    color: #116193;
+}
+
+.movies-details-container-image {
+    flex: 1;
+    display: flex;
+    padding: 32px;
+}
+
+.movie-details-info-content {
+    margin-bottom: 60px;
+}
+
+.movie-details-info-container-details {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.movie-details-info-content-details {
+    padding: 8px;
+}
+
+.movie-details-info-content-details-title {
+    font-family: 'Abel', sans-serif;
+    font-size: 16pt;
+    color: #116193;
+}
+
+.movie-details-info-content-details-text {
+    font-family: 'Abel', sans-serif;
+    color: #116193;
+
+}
+
+.movies-details-circle {
+    background-color: #116193;
+    border-color: #00E4E2;
+    border-width: 8px;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    min-height: 100px;
+    border-radius: 100px;
+}
+
+.movies-details-title-average {
+    color: #FFFFFF;
+    font-size: 20pt;
+}
+
+.movies-details-circle-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.movies-details-image {
+    width: 450px;
+    height: auto;
+}
+
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+    .movies-details-image-mobile {
+        display: none;
+    }
+}
+
+/* 
+    ##Device = Laptops, Desktops
+    ##Screen = B/w 1025px to 1280px
+  */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .movies-details-image-mobile {
+        display: none;
+    }
+}
+
+/* 
+    ##Device = Tablets, Ipads (portrait)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-details-image {
+        display: none;
+    }
+
+    .movies-details-image-mobile {
+        height: auto;
+        width: 25%;
+        float: left;
+        margin: 0px 32px 32px 0px
+    }
+
+}
+
+/* 
+    ##Device = Tablets, Ipads (landscape)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-details-image {
+        display: none;
+    }
+
+    .movies-details-image-mobile {
+        height: auto;
+        width: 25%;
+        float: left;
+        margin-right: 32px
+    }
+}
+
+/* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-details-image {
+        display: none;
+    }
+
+    .movies-details-image-mobile {
+        height: auto;
+        width: 25%;
+        float: left;
+        margin-right: 32px
+    }
+}
+
+/* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .movies-movieinfo-container-image {
+        flex: 0;
+    }
+
+    .movies-details-image {
+        display: none;
+    }
+
+    .movies-details-image-mobile {
+        height: auto;
+        width: 25%;
+        float: left;
+        margin-right: 32px
+    }
 }

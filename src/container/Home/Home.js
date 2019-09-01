@@ -4,6 +4,7 @@ import { Header, Movie, Pagination, SearchInput } from "../../components"
 
 import { getMovies, searchMovies } from "../../duck/movies"
 import { getGenres } from "../../duck/genres"
+import { Link } from 'react-router-dom';
 
 import "./Home.css"
 
@@ -207,15 +208,17 @@ class Home extends React.Component {
                                 })
 
                                 return (
-                                    <div key={index} className="movie-home-list">
-                                        <Movie
-                                            title={value.title}
-                                            description={value.overview}
-                                            average={(value.vote_average * 10).toString()}
-                                            image={`http://image.tmdb.org/t/p/w500/${value.poster_path}`}
-                                            genre={genreMovies}
-                                        />
-                                    </div>
+                                    <Link key={index} className="movies-home-link" to={`/details/${value.id}`}>
+                                        <div className="movie-home-list">
+                                            <Movie
+                                                title={value.title}
+                                                description={value.overview}
+                                                average={(value.vote_average * 10).toString()}
+                                                image={`http://image.tmdb.org/t/p/w500/${value.poster_path}`}
+                                                genre={genreMovies}
+                                            />
+                                        </div>
+                                    </Link>
                                 );
                             })
                         ) :

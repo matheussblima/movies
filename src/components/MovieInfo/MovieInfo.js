@@ -7,7 +7,7 @@ class MovieInfo extends React.Component {
         const { average, image, title, genre, description } = this.props;
 
         return (
-            <div>
+            <div className="movies-movieinfo-link">
                 <div className="movies-movieinfo-container">
                     <div className="movies-movieinfo-container-image">
                         <img className="movies-movieinfo-image" alt="banner-movie" src={image}></img>
@@ -43,6 +43,7 @@ MovieInfo.propTypes = {
     genre: PropTypes.array,
     image: PropTypes.string,
     description: PropTypes.string,
+    onClick: PropTypes.func,
 }
 
 MovieInfo.defaultProps = {

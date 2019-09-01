@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Home from './container/Home';
+import { Home, MovieDetails } from './container';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -14,6 +14,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact={true} component={Home} />
+                <Route path="/details/:id" exact={true} component={MovieDetails} />
             </Switch>
         </ BrowserRouter>
     </Provider>,

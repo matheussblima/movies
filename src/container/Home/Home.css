@@ -5,3 +5,12 @@
 .movie-home-list {
     margin-bottom: 32px;
 }
+
+.movies-home-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.movies-home-link:hover {
+    cursor: pointer;
+}
