@@ -93,19 +93,22 @@ class Home extends React.Component {
 
         const objectConfigPage = this.onConfigPages(currentPage);
 
-        searchMovies(searchValue, objectConfigPage.api).then(() => {
-            const { moviesSearch } = this.props.movies;
+        if (objectConfigPage.api) {
+            searchMovies(searchValue, objectConfigPage.api).then(() => {
+                const { moviesSearch } = this.props.movies;
 
-            const moviesPage = this.chunk(moviesSearch.results, 5);
+                const moviesPage = this.chunk(moviesSearch.results, 5);
 
-            this.setState({
-                moviesPage: moviesPage[objectConfigPage.index],
-                resultsTotal: moviesSearch.total_results,
-                pagesTotal: moviesSearch.total_pages,
-                chunkSize: moviesPage.length,
-                moviesSearchApi: moviesSearch.results,
+                this.setState({
+                    moviesPage: moviesPage[objectConfigPage.index],
+                    resultsTotal: moviesSearch.total_results,
+                    pagesTotal: moviesSearch.total_pages,
+                    chunkSize: moviesPage.length,
+                    moviesSearchApi: moviesSearch.results,
+                });
             });
-        });
+        }
+
 
     }
 
@@ -147,6 +150,7 @@ class Home extends React.Component {
 
 
         this.setState({ searchValue: event.target.value })
+        this.setState({ currentPage: 1 })
 
         if (event.target.value) {
             searchMovies(event.target.value).then(() => {
@@ -192,7 +196,7 @@ class Home extends React.Component {
                 <Header />
                 <section className="movie-home-content">
                     <SearchInput onChange={this.onChange.bind(this)} />
-                    {(isSuccessMovies && isSuccessGenres) ?
+                    {(isSuccessMovies && isSuccessGenres && moviesPage) ?
                         (
                             moviesPage.map((value, index) => {
                                 const genreMovies = [];
