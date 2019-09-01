@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Header, Movie, Pagination } from "../../components"
+import { Header, Movie, Pagination, SearchInput } from "../../components"
 
-import { getMovies } from "../../duck/movies"
+import { getMovies, searchMovies } from "../../duck/movies"
 import { getGenres } from "../../duck/genres"
 
 import "./Home.css"
@@ -16,7 +16,9 @@ class Home extends React.Component {
             moviesApi: [],
             resultsTotal: 10000,
             pagesTotal: 500,
-            chunkSize: 4
+            chunkSize: 4,
+            searchValue: "",
+            moviesSearchApi: {}
         }
         const { getGenres } = this.props;
         const { getMovies } = this.props;
@@ -32,7 +34,13 @@ class Home extends React.Component {
     }
 
     onChangePage(value) {
-        this.getMoviesApi(value);
+        const { searchValue } = this.state;
+
+        if (!searchValue) {
+            this.getMoviesApi(value);
+        } else {
+            this.paginationSearch(value);
+        }
     }
 
     onConfigPages(currentPage) {
@@ -75,6 +83,28 @@ class Home extends React.Component {
         }
     }
 
+    paginationSearch(currentPage) {
+        const { searchMovies } = this.props;
+        const { searchValue } = this.state;
+
+        const objectConfigPage = this.onConfigPages(currentPage);
+
+        searchMovies(searchValue, objectConfigPage.api).then(() => {
+            const { moviesSearch } = this.props.movies;
+
+            const moviesPage = this.chunk(moviesSearch.results, 5);
+
+            this.setState({
+                moviesPage: moviesPage[objectConfigPage.index],
+                resultsTotal: moviesSearch.total_results,
+                pagesTotal: moviesSearch.total_pages,
+                chunkSize: moviesPage.length,
+                moviesSearchApi: moviesSearch.results,
+            });
+        });
+
+    }
+
     getMoviesApi(currentPage) {
         const { getMovies } = this.props;
 
@@ -108,8 +138,45 @@ class Home extends React.Component {
         return number;
     }
 
+    onChange(event) {
+        const { searchMovies, getMovies } = this.props;
+
+
+        this.setState({ searchValue: event.target.value })
+
+        if (event.target.value) {
+            searchMovies(event.target.value).then(() => {
+                const { moviesSearch } = this.props.movies;
+
+                const moviesPage = this.chunk(moviesSearch.results, 5);
+
+                this.setState({
+                    resultsTotal: moviesSearch.total_results,
+                    pagesTotal: moviesSearch.total_pages,
+                    moviesPage: moviesPage[0],
+                    chunkSize: moviesPage.length,
+                    moviesSearchApi: moviesSearch.results,
+                })
+            });
+        } else {
+            getMovies(1).then(() => {
+                const { movies } = this.props.movies;
+
+                const moviesPage = this.chunk(movies.results, 5);
+
+                this.setState({
+                    resultsTotal: movies.total_results,
+                    pagesTotal: movies.total_pages,
+                    moviesPage: moviesPage[0],
+                    chunkSize: moviesPage.length
+                })
+            });
+        }
+
+    };
+
     render() {
-        const { moviesPage } = this.state;
+        const { moviesPage, pagesTotal, chunkSize } = this.state;
         const { genres } = this.props.genres;
         const isSuccessMovies = this.props.movies.isSuccess;
         const isSuccessGenres = this.props.genres.isSuccess;
@@ -120,6 +187,7 @@ class Home extends React.Component {
             <div>
                 <Header />
                 <section className="movie-home-content">
+                    <SearchInput onChange={this.onChange.bind(this)} />
                     {(isSuccessMovies && isSuccessGenres) ?
                         (
                             moviesPage.map((value, index) => {
@@ -151,7 +219,7 @@ class Home extends React.Component {
                         (
                             !isFetchMovies && !isFetchGenres && !isSuccessMovies && !isFetchGenres ? <h1>Erro ao buscar filmes</h1> : undefined
                         )}
-                    {isSuccessMovies && isSuccessGenres ? (<Pagination onChangePage={(value) => this.onChangePage(value)} />) : undefined}
+                    {isSuccessMovies && isSuccessGenres ? (<Pagination size={pagesTotal * chunkSize} onChangePage={(value) => this.onChangePage(value)} />) : undefined}
                 </section>
             </div>
         );
@@ -159,6 +227,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
+
     return {
         ...state
     }
@@ -166,6 +235,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     getMovies: (page) => dispatch(getMovies(page)),
+    searchMovies: (query, page) => dispatch(searchMovies(query, page)),
     getGenres: () => dispatch(getGenres())
 });
 

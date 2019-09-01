@@ -10,12 +10,14 @@ class Pagination extends React.Component {
         this.state = {
             currentPage: 1,
         }
+
+        this.onClickPage = this.onClickPage.bind(this)
     }
 
 
     onClickPage(currentPage) {
         const { onChangePage } = this.props;
-        this.setState({ currentPage });
+        this.setState({ onChangePage })
         onChangePage(currentPage)
     }
 
@@ -41,8 +43,11 @@ class Pagination extends React.Component {
 
         const pagesNumber = pagination.pages.map((value, i) => {
             return (
-                <button href="#" key={i} className={`${currentPage === value ? "movies-pagination-page-circle-selected" : "movies-pagination-page-circle-noSelected"} movies-pagination-page-circle`}>
-                    <span onClick={() => this.onClickPage(value)} className={`${currentPage === value ? "movies-pagination-page-selected" : "movies-pagination-page-noSelected"} movies-pagination-page`}>
+                <button onClick={(event) => {
+                    event.stopPropagation();
+                    this.onClickPage(value);
+                }} key={i} className={`${currentPage === value ? "movies-pagination-page-circle-selected" : "movies-pagination-page-circle-noSelected"} movies-pagination-page-circle`}>
+                    <span className={`${currentPage === value ? "movies-pagination-page-selected" : "movies-pagination-page-noSelected"} movies-pagination-page`}>
                         {value}
                     </span>
                 </button>
@@ -56,7 +61,6 @@ class Pagination extends React.Component {
     render() {
         const { currentPage } = this.state;
         const { size } = this.props;
-
 
         return (
             <div className="movies-pagination-container">

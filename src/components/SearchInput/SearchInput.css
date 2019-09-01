@@ -1,0 +1,29 @@
+input[type=text],
+.movies-search-input {
+    width: 100%;
+    padding: 16px 20px;
+    margin: 50px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 30px;
+    background-color: #EBEBEB;
+    color: #116193;
+    font-family: 'Abel', sans-serif;
+    font-size: 16pt;
+}
+
+input[type=text],
+.movies-search-input::placeholder {
+    color: #116193;
+    font-size: 16pt;
+}
+
+input[type=text],
+.movies-search-input:-ms-input-placeholder {
+    color: #116193;
+}
+
+input[type=text],
+.movies-search-input::-ms-input-placeholder {
+    color: #116193;
+}
