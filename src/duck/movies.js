@@ -10,6 +10,9 @@ const GET_MOVIES_SEARCH_FAILURE = 'movies/GET_MOVIES_SEARCH_FAILURE';
 const GET_MOVIES_DETAILS_REQUEST = 'movies/GET_MOVIES_DETAILS_REQUEST';
 const GET_MOVIES_DETAILS_SUCCESS = 'movies/GET_MOVIES_DETAILS_SUCCESS';
 const GET_MOVIES_DETAILS_FAILURE = 'movies/GET_MOVIES_DETAILS_FAILURE';
+const GET_MOVIES_VIDEO_REQUEST = 'movies/GET_MOVIES_VIDEO_REQUEST';
+const GET_MOVIES_VIDEO_SUCCESS = 'movies/GET_MOVIES_VIDEO_SUCCESS';
+const GET_MOVIES_VIDEO_FAILURE = 'movies/GET_MOVIES_VIDEO_FAILURE';
 
 // Reducer
 export default function reducer(state = {}, action = {}) {
@@ -65,6 +68,25 @@ export default function reducer(state = {}, action = {}) {
                 moviesDetails: action.payload
             });
         case GET_MOVIES_DETAILS_FAILURE:
+            return Object.assign({}, state, {
+                isFetch: action.isFetch,
+                isSuccess: action.isSuccess,
+                status: action.status,
+                message: action.message
+            });
+        case GET_MOVIES_VIDEO_REQUEST:
+            return Object.assign({}, state, {
+                isFetch: action.isFetch,
+                isSuccess: action.isSuccess
+            });
+        case GET_MOVIES_VIDEO_SUCCESS:
+            return Object.assign({}, state, {
+                isFetch: action.isFetch,
+                isSuccess: action.isSuccess,
+                status: action.status,
+                moviesVideo: action.payload
+            });
+        case GET_MOVIES_VIDEO_FAILURE:
             return Object.assign({}, state, {
                 isFetch: action.isFetch,
                 isSuccess: action.isSuccess,
@@ -143,6 +165,28 @@ export const getMoviesDetailsFailure = (status, message) => ({
     isFetch: false
 });
 
+export const getMoviesVideoRequest = () => ({
+    type: GET_MOVIES_VIDEO_REQUEST,
+    isSuccess: false,
+    isFetch: true
+});
+
+export const getMoviesVideoSuccess = (json, status) => ({
+    type: GET_MOVIES_VIDEO_SUCCESS,
+    isSuccess: true,
+    isFetch: false,
+    payload: json,
+    status
+});
+
+export const getMoviesVideoFailure = (status, message) => ({
+    type: GET_MOVIES_VIDEO_FAILURE,
+    status,
+    message,
+    isSuccess: false,
+    isFetch: false
+});
+
 
 
 
@@ -202,6 +246,27 @@ export const getDetailsMovies = (id) => (dispatch, getState) => {
                 return dispatch(getMoviesDetailsSuccess(json, response.status));
             }
             return dispatch(getMoviesDetailsFailure(response.status));
+        })
+        .catch(erro => console.error(erro));
+};
+
+
+
+export const getVideoMovies = (id) => (dispatch, getState) => {
+    dispatch(getMoviesVideoRequest());
+
+    return fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${api.key}&language=pt-BR`)
+        .then(response =>
+            response.json().then(json => ({
+                json,
+                response
+            }))
+        )
+        .then(({ response, json }) => {
+            if (response.ok) {
+                return dispatch(getMoviesVideoSuccess(json, response.status));
+            }
+            return dispatch(getMoviesVideoFailure(response.status));
         })
         .catch(erro => console.error(erro));
 };

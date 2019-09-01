@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Header } from "../../components";
 
-import { getDetailsMovies } from "../../duck/movies"
+import { getDetailsMovies, getVideoMovies } from "../../duck/movies"
 import { getGenres } from "../../duck/genres"
 
 import "./MovieDetails.css"
@@ -12,7 +12,21 @@ class MovieDetails extends React.Component {
         super(props);
 
         this.props.getDetailsMovies(this.props.match.params.id);
+        this.props.getVideoMovies(this.props.match.params.id);
         this.props.getGenres();
+    }
+
+    renderVideo() {
+        const { moviesVideo } = this.props.movies;
+
+        if (moviesVideo.results.length > 0) {
+            return (
+                <iframe title="video" style={{ marginTop: 32 }} width="100%" height="700"
+                    src={`https://www.youtube.com/embed/${moviesVideo.results[0].key}`}>
+                </iframe>
+            );
+        }
+        return undefined;
     }
 
     render() {
@@ -97,6 +111,7 @@ class MovieDetails extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {this.renderVideo()}
                     </section>
                 ) : (undefined)}
             </div>
@@ -113,7 +128,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     getDetailsMovies: (id) => dispatch(getDetailsMovies(id)),
-    getGenres: () => dispatch(getGenres())
+    getGenres: () => dispatch(getGenres()),
+    getVideoMovies: (id) => dispatch(getVideoMovies(id))
 });
 
 export default connect(
