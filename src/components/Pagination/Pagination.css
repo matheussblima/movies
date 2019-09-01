@@ -40,6 +40,10 @@
     margin: 16px;
 }
 
+.movies-pagination-page-circle {
+    cursor: pointer;
+}
+
 .movies-pagination-arrow {
     padding: 0px;
     border: 0px;

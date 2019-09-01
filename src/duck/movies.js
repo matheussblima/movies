@@ -57,7 +57,7 @@ export const getMovieFailure = (status, message) => ({
 
 
 
-export const getMovies = (page) => dispatch => {
+export const getMovies = page => (dispatch, getState) => {
     dispatch(getMovieRequest());
     return fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api.key}&page=${page || 1}&language=pt-BR`)
         .then(response =>
@@ -68,6 +68,7 @@ export const getMovies = (page) => dispatch => {
         )
         .then(({ response, json }) => {
             if (response.ok) {
+
                 return dispatch(getMovieSuccess(json, response.status));
             }
             return dispatch(getMovieFailure(response.status));
