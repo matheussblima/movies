@@ -18,7 +18,8 @@ class Home extends React.Component {
             pagesTotal: 500,
             chunkSize: 4,
             searchValue: "",
-            moviesSearchApi: {}
+            moviesSearchApi: {},
+            currentPage: 1,
         }
         const { getGenres } = this.props;
         const { getMovies } = this.props;
@@ -35,6 +36,8 @@ class Home extends React.Component {
 
     onChangePage(value) {
         const { searchValue } = this.state;
+
+        this.setState({ currentPage: value })
 
         if (!searchValue) {
             this.getMoviesApi(value);
@@ -176,7 +179,7 @@ class Home extends React.Component {
     };
 
     render() {
-        const { moviesPage, pagesTotal, chunkSize } = this.state;
+        const { moviesPage, pagesTotal, chunkSize, currentPage } = this.state;
         const { genres } = this.props.genres;
         const isSuccessMovies = this.props.movies.isSuccess;
         const isSuccessGenres = this.props.genres.isSuccess;
@@ -219,7 +222,7 @@ class Home extends React.Component {
                         (
                             !isFetchMovies && !isFetchGenres && !isSuccessMovies && !isFetchGenres ? <h1>Erro ao buscar filmes</h1> : undefined
                         )}
-                    {isSuccessMovies && isSuccessGenres ? (<Pagination size={pagesTotal * chunkSize} onChangePage={(value) => this.onChangePage(value)} />) : undefined}
+                    {isSuccessMovies && isSuccessGenres ? (<Pagination currentPage={currentPage} size={pagesTotal * chunkSize} onChangePage={(value) => this.onChangePage(value)} />) : undefined}
                 </section>
             </div>
         );

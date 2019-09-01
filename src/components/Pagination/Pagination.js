@@ -7,33 +7,26 @@ class Pagination extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            currentPage: 1,
-        }
-
         this.onClickPage = this.onClickPage.bind(this)
     }
 
 
     onClickPage(currentPage) {
         const { onChangePage } = this.props;
-        this.setState({ onChangePage })
         onChangePage(currentPage)
     }
 
     onClickArrowLeft() {
-        const { onChangePage } = this.props;
-        if (this.state.currentPage > 1) {
-            this.setState({ currentPage: this.state.currentPage - 1 });
-            onChangePage(this.state.currentPage - 1)
+        const { onChangePage, currentPage } = this.props;
+        if (currentPage > 1) {
+            onChangePage(currentPage - 1)
         }
     }
 
     onClickArrowRight() {
-        const { onChangePage } = this.props;
-        if (this.state.currentPage < this.props.size) {
-            this.setState({ currentPage: this.state.currentPage + 1 });
-            onChangePage(this.state.currentPage + 1)
+        const { onChangePage, currentPage } = this.props;
+        if (currentPage < this.props.size) {
+            onChangePage(currentPage + 1)
         }
     }
 
@@ -59,8 +52,7 @@ class Pagination extends React.Component {
     }
 
     render() {
-        const { currentPage } = this.state;
-        const { size } = this.props;
+        const { size, currentPage } = this.props;
 
         return (
             <div className="movies-pagination-container">
@@ -74,12 +66,14 @@ class Pagination extends React.Component {
 
 Pagination.propTypes = {
     size: PropTypes.number,
-    onChangePage: PropTypes.func
+    onChangePage: PropTypes.func,
+    currentPage: PropTypes.number,
 }
 
 Pagination.defaultProps = {
     size: 500,
-    onChangePage: () => { }
+    onChangePage: () => { },
+    currentPage: 1
 }
 
 export default Pagination;
